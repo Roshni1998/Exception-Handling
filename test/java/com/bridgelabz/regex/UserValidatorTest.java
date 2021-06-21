@@ -1,39 +1,78 @@
 package com.bridgelabz.regex;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserValidatorTest {
 
-        @Test
-        public void givenEmailId_WhenProper_ShouldReturnTrue(){
-            UserValidator valid = new UserValidator();
-            assertTrue(valid.isValidEmailId("abc@yahoo.com"));
-            assertTrue(valid.isValidEmailId("abc-100@yahoo.com"));
-            assertTrue(valid.isValidEmailId("abc.100@yahoo.com"));
-            assertTrue(valid.isValidEmailId("abc111@abc.com"));
-            assertTrue(valid.isValidEmailId("abc-100@abc.net"));
-            assertTrue(valid.isValidEmailId("abc.100@abc.com.au"));
-            assertTrue(valid.isValidEmailId("abc@1.com"));
-            assertTrue(valid.isValidEmailId("abc@gmail.com.com"));
-            assertTrue(valid.isValidEmailId("abc+100@gmail.com"));
-        }
+    @Test
+    public void givenFirstName_WhenProper_ShouldReturnHappy() {
+        UserValidator valid = new UserValidator();
+        String fname = valid.isValidFirstName("Roshni");
+        Assertions.assertEquals("HAPPY", fname);
+    }
 
-        @Test
-        public void givenEmailId_WhenNotProper_ShouldReturnFalse(){
-            UserValidator valid = new UserValidator();
-            assertFalse(valid.isValidEmailId("abc.@gmail.com"));
-            assertFalse(valid.isValidEmailId("abc@.com.my"));
-            assertFalse(valid.isValidEmailId("abc123@gmail.a"));
-            assertFalse(valid.isValidEmailId("abc123@.com"));
-            assertFalse(valid.isValidEmailId("abc123@.com.com"));
-            assertFalse(valid.isValidEmailId(".abc@abc.com"));
-            assertFalse(valid.isValidEmailId("abc()*@gmail.com"));
-            assertFalse(valid.isValidEmailId("abc@%*.com"));
-            assertFalse(valid.isValidEmailId("abc..2002@gmail.com"));
-            assertFalse(valid.isValidEmailId("abc.@gmail.com"));
-            assertFalse(valid.isValidEmailId("abc@gmail.com.1a"));
-            assertFalse(valid.isValidEmailId("abc@gmail.com.aa.au"));
-        }
+    @Test
+    public void givenFirstName_WhenNotProper_ShouldReturnSad(){
+        UserValidator valid = new UserValidator();
+        String fname = valid.isValidFirstName("Ro");
+        Assertions.assertEquals("SAD", fname);
+    }
+
+    @Test
+    public void givenLastName_WhenProper_ShouldReturnHappy(){
+        UserValidator valid = new UserValidator();
+        String lname = valid.isValidLastName("Mali");
+        Assertions.assertEquals("HAPPY", lname);
+    }
+
+    @Test
+    public void givenLastName_WhenNotProper_ShouldReturnSad(){
+        UserValidator valid = new UserValidator();
+        String lname = valid.isValidLastName("ma");
+        Assertions.assertEquals("SAD", lname);
+    }
+
+    @Test
+    public void givenEmailId_WhenProper_ShouldReturnHappy(){
+        UserValidator valid = new UserValidator();
+        String emailId = valid.isValidEmailId("roshni1234@gmail.com");
+        Assertions.assertEquals("HAPPY", emailId);
+    }
+
+    @Test
+    public void givenEmailId_WhenNotProper_ShouldReturnSad(){
+        UserValidator valid = new UserValidator();
+        String emailId = valid.isValidEmailId("roshni1234@gmail.com.innnn");
+        Assertions.assertEquals("SAD", emailId);
+    }
+
+    @Test
+    public void givenMobileNo_WhenProper_ShouldReturnHappy(){
+        UserValidator valid = new UserValidator();
+        String mobileNo = valid.isValidMobileNo("91 9999888767");
+        Assertions.assertEquals("HAPPY", mobileNo);
+    }
+
+    @Test
+    public void givenMobileNo_WhenNotProper_ShouldReturnSad(){
+        UserValidator valid = new UserValidator();
+        String mobileNo = valid.isValidMobileNo("919999888767");
+        Assertions.assertEquals("SAD", mobileNo);
+    }
+
+    @Test
+    public void givenPasswordShouldHaveAtLeastOne_SpecialCharacter_ThenReturnHappy(){
+        UserValidator valid = new UserValidator();
+        String password = valid.isValidPassword("A@cdEfg8");
+        Assertions.assertEquals("HAPPY", password);
+    }
+
+    @Test
+    public void givenPasswordShouldHaveAtLeastOne_SpecialCharacter_OtherwiseReturnSad(){
+        UserValidator valid = new UserValidator();
+        String password = valid.isValidPassword("ABcdef123");
+        Assertions.assertEquals("SAD", password);
+    }
+
 }
